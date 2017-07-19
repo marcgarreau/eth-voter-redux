@@ -1,7 +1,8 @@
 import Web3 from 'web3';
+import { contractABI, contractAddress } from './constants';
 
-export default function findWeb3() {
-  var web3 = window.web3;
+export function getWeb3() {
+  // var web3 = window.web3;
 
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
   // if (typeof web3 !== 'undefined') {
@@ -13,8 +14,15 @@ export default function findWeb3() {
 
   // Fallback to localhost if no web3 injection.
   var provider = new Web3.providers.HttpProvider('http://localhost:8545');
-  web3 = new Web3(provider);
+  const web3 = new Web3(provider);
+  window.web3 = web3;
   console.log('No web3 instance injected, using Local web3.');
   return web3;
   // }
+}
+
+export function getContractInterface(web3) {
+  const contractInterface = web3.eth.contract(contractABI).at(contractAddress);
+  window.contract = contractInterface;
+  return contractInterface.address;
 }

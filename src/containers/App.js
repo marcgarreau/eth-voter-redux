@@ -7,12 +7,12 @@ import { addItem } from '../store/items/actions';
 import Header from '../components/Header';
 import ListPage from '../components/ListPage';
 import Home from '../components/Home';
-import { initializeWeb3 } from '../store/config/actions';
+import { initialize } from '../store/config/actions';
 import '../assets/stylesheets/App.scss';
 
 export class App extends Component {
   componentDidMount() {
-    this.props.dispatch(initializeWeb3());
+    this.props.dispatch(initialize());
   }
 
   handleAddItem(text) {

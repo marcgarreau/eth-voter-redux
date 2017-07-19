@@ -1,9 +1,19 @@
-import findWeb3 from '../utils/findWeb3';
+import { getWeb3, getContractInterface } from '../utils/initialization';
 
-export function initializeWeb3(payload) {
-  return dispatch => {
-    const payload = findWeb3();
-    window.web3 = payload;
-    dispatch({ type: 'SET_WEB3', payload: payload.currentProvider.host });
+export function initialize(payload) {
+  return async dispatch => {
+    const web3 = await getWeb3();
+    dispatch(getWeb3Success(web3.currentProvider.host));
+
+    const contractAddress = await getContractInterface(web3);
+    dispatch(getContractInterfaceSuccess(contractAddress));
   };
+}
+
+function getWeb3Success(host) {
+  return { type: 'SET_WEB3', payload: { host } };
+}
+
+function getContractInterfaceSuccess(contractAddress) {
+  return { type: 'SET_CONTRACT_INTERFACE', payload: { contractAddress } };
 }
