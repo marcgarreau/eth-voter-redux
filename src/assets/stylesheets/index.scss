@@ -1,6 +1,10 @@
 @import '~react-md/src/scss/react-md';
 @include react-md-everything;
 
+html {
+  background-color: #1565C0;
+}
+
 body {
   margin: 0;
   padding: 0;

@@ -1,0 +1,22 @@
+.vote-page-wrapper {
+  background-color: #FFF;
+  box-shadow: 2px 2px 2px #000;
+  text-align: center;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.vote-page__proposal {
+  display: inline-block;
+  padding: 25px;
+  font-size: 24px;
+}
+
+.vote-page__btn-wrapper {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.vote-page__btn {
+  margin: 20px 10px;
+}

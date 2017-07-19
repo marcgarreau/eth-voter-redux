@@ -7,6 +7,7 @@ import { addItem } from '../store/items/actions';
 import Header from '../components/Header';
 import ListPage from '../components/ListPage';
 import Home from '../components/Home';
+import VotePage from '../components/VotePage';
 import { initialize } from '../store/config/actions';
 import '../assets/stylesheets/App.scss';
 
@@ -25,6 +26,12 @@ export class App extends Component {
         <Header />
 
         <Route exact path="/" component={Home} />
+        <Route
+          path="/vote"
+          component={() => {
+            return <VotePage proposal={this.props.proposal} />;
+          }}
+        />
         <Route
           path="/list"
           component={() => {
@@ -49,6 +56,7 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     items: state.items.list,
+    proposal: state.config.proposalText,
   };
 }
 
