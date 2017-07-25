@@ -3,6 +3,7 @@ import {
   getContractInterface,
   getParameterByName,
 } from '../utils/initialization';
+import { getProposals } from '../proposals/actions';
 
 export function initialize(payload) {
   return async dispatch => {
@@ -12,8 +13,10 @@ export function initialize(payload) {
     const contractAddress = await getContractInterface(web3);
     dispatch(getContractInterfaceSuccess(contractAddress));
 
-    const proposal = decodeURI(getParameterByName('proposal'));
-    dispatch(getProposalSuccess(proposal));
+    dispatch(getProposals());
+
+    // const proposalText = await decodeURI(getParameterByName('proposal'));
+    // dispatch(getProposalSuccess(proposalText));
   };
 }
 
@@ -28,6 +31,6 @@ function getContractInterfaceSuccess(contractAddress) {
   };
 }
 
-function getProposalSuccess(proposalText) {
-  return { type: 'GET_PROPOSAL_SUCCESS', payload: { proposalText } };
-}
+// function getProposalSuccess(proposalText) {
+// return { type: 'GET_PROPOSAL_SUCCESS', payload: { proposalText } };
+// }

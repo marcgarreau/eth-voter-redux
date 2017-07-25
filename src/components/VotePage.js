@@ -5,8 +5,8 @@ import Button from 'react-md/lib/Buttons';
 import '../assets/stylesheets/VotePage.scss';
 
 class VotePage extends Component {
-  vote = pro => {
-    console.log(pro);
+  castVote = pro => {
+    this.props.castVote(pro);
   };
 
   render() {
@@ -21,14 +21,14 @@ class VotePage extends Component {
             primary
             className="vote-page__btn"
             label="Yes"
-            onClick={() => this.vote(true)}
+            onClick={() => this.castVote(true)}
           />
           <Button
             raised
             secondary
             className="vote-page__btn"
             label="No"
-            onClick={() => this.vote(false)}
+            onClick={() => this.castVote(false)}
           />
         </div>
       </div>
