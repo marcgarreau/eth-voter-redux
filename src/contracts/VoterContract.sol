@@ -3,10 +3,11 @@ pragma solidity ^0.4.13;
 contract VoterContract {
     Proposal[] public proposals;
 
-    event LogVote(string indexed proposalHash, bool pro, address addr);
+    event LogProposal(string indexed proposal, uint proposalCount, address addr);
+    event LogVote(string indexed proposal, bool pro, address addr);
 
     struct Proposal {
-        string name;
+        string text;
         uint voteCount;
     }
 
@@ -15,14 +16,15 @@ contract VoterContract {
     }
 
     function getProposal(uint index) public returns (string, uint) {
-        return (proposals[index].name, proposals[index].voteCount);
+        return (proposals[index].text, proposals[index].voteCount);
     }
 
-    function addProposal(string proposalHash) {
+    function addProposal(string proposal) public returns (uint, string) {
         proposals.push(Proposal({
-            name: proposalHash,
+            text: proposal,
             voteCount: 0
         }));
+        LogProposal(proposal, proposals.length, msg.sender);
     }
 
     function vote(string proposal, bool pro) {

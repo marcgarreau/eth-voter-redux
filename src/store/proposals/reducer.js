@@ -15,3 +15,5 @@ function proposals(state = initialState, action) {
       return state;
   }
 }
+
+export default proposals;

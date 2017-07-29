@@ -6,7 +6,7 @@ class Proposal {
           const bn = await window.contract.getProposalCount.call({
             from: accounts[0],
           });
-          resolve(bn.c[0]);
+          resolve(bn.toNumber());
         } else {
           console.log('boom!');
         }
@@ -30,16 +30,21 @@ class Proposal {
     });
   }
 
-  async create(proposal) {
-    return await new Promise(resolve => {
+  create(proposal) {
+    return new Promise(resolve => {
       window.web3.eth.getAccounts(async (e, accounts) => {
         if (!e && accounts && accounts.length > 0) {
-          debugger;
-          const x = await window.contract.addProposal.call(proposal, {
-            from: accounts[0],
-          });
-          console.log('prop', x);
-          resolve(x);
+          window.contract.addProposal.call(
+            proposal,
+            {
+              from: accounts[0],
+            },
+            (e, response) => {
+              console.log('response', response);
+              response[0] = response[0].toNumber();
+              resolve(response);
+            }
+          );
         } else {
           console.log('boom!');
         }
