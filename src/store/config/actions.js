@@ -3,7 +3,7 @@ import {
   getContractInterface,
   getParameterByName,
 } from '../utils/initialization';
-import { getProposals } from '../proposals/actions';
+import { getProposalCount } from '../proposals/actions';
 
 export function initialize(payload) {
   return async dispatch => {
@@ -13,7 +13,7 @@ export function initialize(payload) {
     const contractAddress = await getContractInterface(web3);
     dispatch(getContractInterfaceSuccess(contractAddress));
 
-    dispatch(getProposals());
+    dispatch(getProposalCount());
 
     // const proposalText = await decodeURI(getParameterByName('proposal'));
     // dispatch(getProposalSuccess(proposalText));

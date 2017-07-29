@@ -10,6 +10,14 @@ class VotePage extends Component {
   };
 
   render() {
+    if (!this.props.proposal) {
+      return (
+        <div className="vote-page__null-state">
+          No proposals up for vote yet! Add one below:
+        </div>
+      );
+    }
+
     return (
       <div className="vote-page-wrapper">
         <div className="vote-page__proposal">

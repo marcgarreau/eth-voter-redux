@@ -3,22 +3,30 @@ pragma solidity ^0.4.13;
 contract VoterContract {
     Proposal[] public proposals;
 
-    event LogVote(bytes32 indexed proposalHash, bool pro, address addr);
+    event LogVote(string indexed proposalHash, bool pro, address addr);
 
     struct Proposal {
-        bytes32 name;
+        string name;
         uint voteCount;
     }
 
-    function addProposal(bytes32 proposalHash) {
+    function getProposalCount() public returns (uint) {
+        return proposals.length;
+    }
+
+    function getProposal(uint index) public returns (string, uint) {
+        return (proposals[index].name, proposals[index].voteCount);
+    }
+
+    function addProposal(string proposalHash) {
         proposals.push(Proposal({
             name: proposalHash,
             voteCount: 0
         }));
     }
 
-    function vote(bytes32 proposalHash, bool pro) {
-        LogVote(proposalHash, pro, msg.sender);
+    function vote(string proposal, bool pro) {
+        LogVote(proposal, pro, msg.sender);
     }
 
     function () { revert(); }

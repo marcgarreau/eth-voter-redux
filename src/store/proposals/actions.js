@@ -1,5 +1,22 @@
 import Proposal from './service';
 
+export function getProposalCount() {
+  return async dispatch => {
+    dispatch(getProposalCountRequest());
+    const count = await Proposal.getCount();
+    console.log('count', count);
+    dispatch(getProposalCountSuccess(count));
+  };
+}
+
+function getProposalCountRequest() {
+  return { type: 'GET_PROPOSAL_COUNT_REQUEST' };
+}
+
+function getProposalCountSuccess(payload) {
+  return { type: 'GET_PROPOSAL_COUNT_SUCCESS', payload };
+}
+
 export function getProposals() {
   return async dispatch => {
     dispatch(getProposalsRequest());

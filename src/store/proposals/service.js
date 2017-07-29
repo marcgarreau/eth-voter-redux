@@ -1,4 +1,19 @@
 class Proposal {
+  async getCount() {
+    return await new Promise(resolve => {
+      window.web3.eth.getAccounts(async (e, accounts) => {
+        if (!e && accounts && accounts.length > 0) {
+          const bn = await window.contract.getProposalCount.call({
+            from: accounts[0],
+          });
+          resolve(bn.c[0]);
+        } else {
+          console.log('boom!');
+        }
+      });
+    });
+  }
+
   async getAll() {
     return await new Promise(resolve => {
       window.web3.eth.getAccounts(async (e, accounts) => {
