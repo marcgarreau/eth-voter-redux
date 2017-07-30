@@ -18,7 +18,7 @@ class Proposal {
     return await new Promise(resolve => {
       window.web3.eth.getAccounts(async (e, accounts) => {
         if (!e && accounts && accounts.length > 0) {
-          const x = await window.contract.proposals.call(null, {
+          const x = await window.contract.proposals(null, {
             from: accounts[0],
           });
           console.log('x', x);
@@ -34,14 +34,13 @@ class Proposal {
     return new Promise(resolve => {
       window.web3.eth.getAccounts(async (e, accounts) => {
         if (!e && accounts && accounts.length > 0) {
-          window.contract.addProposal.call(
+          window.contract.addProposal(
             proposal,
             {
               from: accounts[0],
             },
             (e, response) => {
               console.log('response', response);
-              response[0] = response[0].toNumber();
               resolve(response);
             }
           );

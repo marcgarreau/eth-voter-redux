@@ -37,8 +37,8 @@ export function createProposal(proposal) {
   return async dispatch => {
     dispatch({ type: 'CREATE_PROPOSAL_REQUEST' });
     try {
-      const newProposal = await Proposal.create(proposal);
-      dispatch({ type: 'CREATE_PROPOSAL_SUCCESS', payload: newProposal });
+      const tx = await Proposal.create(proposal);
+      dispatch({ type: 'CREATE_PROPOSAL_SUCCESS', payload: tx });
       dispatch(getProposalCount());
     } catch (e) {
       dispatch({ type: 'CREATE_PROPOSAL_FAILURE', error: e });
