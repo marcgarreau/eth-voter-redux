@@ -1,5 +1,6 @@
 const initialState = {
   count: 0,
+  current: null,
   loading: false,
 };
 
@@ -9,8 +10,8 @@ function proposals(state = initialState, action) {
       return { ...initialState, loading: true };
     case 'GET_PROPOSAL_COUNT_SUCCESS':
       return { ...initialState, count: action.payload };
-    case 'GET_PROPOSALS_SUCCESS':
-      return { ...state, list: action.payload };
+    case 'GET_PROPOSAL_SUCCESS':
+      return { ...state, current: action.payload };
     default:
       return state;
   }

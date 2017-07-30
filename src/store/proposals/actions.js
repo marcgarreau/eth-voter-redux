@@ -4,7 +4,6 @@ export function getProposalCount() {
   return async dispatch => {
     dispatch(getProposalCountRequest());
     const count = await Proposal.getCount();
-    console.log('count', count);
     dispatch(getProposalCountSuccess(count));
   };
 }

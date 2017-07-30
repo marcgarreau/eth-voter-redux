@@ -1,7 +1,6 @@
 const initialState = {
   contractAddress: '',
   loaded: false,
-  proposalText: '',
   web3Host: '',
 };
 
@@ -14,11 +13,6 @@ function config(state = initialState, action) {
         ...state,
         contractAddress: action.payload.contractAddress,
         loaded: true,
-      };
-    case 'GET_PROPOSAL_SUCCESS':
-      return {
-        ...state,
-        proposalText: action.payload.proposalText,
       };
     default:
       return state;
