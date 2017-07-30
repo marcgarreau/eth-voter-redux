@@ -22,16 +22,7 @@ export class Header extends Component {
 
     return (
       <div className="header">
-        <Toolbar
-          actions={actions}
-          themed
-          nav={
-            <Button key="nav" icon>
-              menu
-            </Button>
-          }
-          title="Accelerator"
-        />
+        <Toolbar actions={actions} themed title="EthVoterRedux" />
         <div className="header__body">
           <img src={logo} className="header__logo" alt="logo" />
           <h2 className="header__title">EthVoterRedux</h2>

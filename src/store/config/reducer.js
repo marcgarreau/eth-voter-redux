@@ -1,5 +1,6 @@
 const initialState = {
   contractAddress: '',
+  initialized: false,
   loaded: false,
   web3Host: '',
 };
@@ -14,6 +15,8 @@ function config(state = initialState, action) {
         contractAddress: action.payload.contractAddress,
         loaded: true,
       };
+    case 'INITIALIZATION_SUCCESS':
+      return { ...state, initialized: true };
     default:
       return state;
   }

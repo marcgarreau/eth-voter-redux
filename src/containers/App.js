@@ -8,7 +8,7 @@ import Home from '../components/Home';
 import VotePage from '../components/VotePage';
 import NewProposalForm from '../components/NewProposalForm';
 import { initialize } from '../store/config/actions';
-import { createProposal } from '../store/proposals/actions';
+import { createProposal, getProposal } from '../store/proposals/actions';
 import { vote } from '../store/vote/actions';
 import '../assets/stylesheets/App.scss';
 
@@ -26,6 +26,10 @@ export class App extends Component {
     this.props.dispatch(createProposal(proposalText));
   };
 
+  handleGetProposal = index => {
+    this.props.dispatch(getProposal(index));
+  };
+
   render() {
     return (
       <div className="app">
@@ -39,7 +43,9 @@ export class App extends Component {
               return (
                 <VotePage
                   proposal={this.props.proposal}
+                  proposalCount={this.props.proposalCount}
                   castVote={this.castVote}
+                  handleGetProposal={this.handleGetProposal}
                 />
               );
             }}
@@ -49,7 +55,6 @@ export class App extends Component {
 
         <NewProposalForm
           addingProposal={this.props.addingProposal}
-          proposal={this.props.proposal}
           handleNewProposal={this.handleNewProposal}
         />
       </div>
@@ -66,6 +71,7 @@ function mapStateToProps(state) {
   return {
     addingProposal: state.proposals.addingProposal,
     currentProposal: state.proposals.current,
+    proposalCount: state.proposals.count,
     proposal: state.proposals.current,
   };
 }

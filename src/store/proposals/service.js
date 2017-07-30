@@ -14,6 +14,26 @@ class Proposal {
     });
   }
 
+  get(index) {
+    return new Promise(resolve => {
+      window.web3.eth.getAccounts(async (e, accounts) => {
+        if (!e && accounts && accounts.length > 0) {
+          window.contract.getProposal.call(
+            index,
+            {
+              from: accounts[0],
+            },
+            (e, response) => {
+              resolve(response);
+            }
+          );
+        } else {
+          console.log('boom!');
+        }
+      });
+    });
+  }
+
   create(proposal) {
     return new Promise(resolve => {
       window.web3.eth.getAccounts(async (e, accounts) => {

@@ -1,5 +1,5 @@
 import { getWeb3, getContractInterface } from '../utils/initialization';
-import { getProposalCount } from '../proposals/actions';
+import { getInitialProposal } from '../proposals/actions';
 
 export function initialize(payload) {
   return async dispatch => {
@@ -9,7 +9,9 @@ export function initialize(payload) {
     const contractAddress = await getContractInterface(web3);
     dispatch(getContractInterfaceSuccess(contractAddress));
 
-    dispatch(getProposalCount());
+    dispatch(getInitialProposal());
+
+    dispatch(initializationSuccess());
   };
 }
 
@@ -22,4 +24,8 @@ function getContractInterfaceSuccess(contractAddress) {
     type: 'GET_CONTRACT_INTERFACE_SUCCESS',
     payload: { contractAddress },
   };
+}
+
+function initializationSuccess() {
+  return { type: 'INITIALIZATION_SUCCESS' };
 }
