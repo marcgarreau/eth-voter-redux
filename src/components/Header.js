@@ -12,14 +12,11 @@ export class Header extends Component {
     const { history } = this.props;
 
     const actions = [
-      <Button icon key="home" onClick={() => history.push('/')}>
+      <Button icon key="home" onClick={() => history.push('/about')}>
         home
       </Button>,
-      <Button icon key="vote" onClick={() => history.push('/vote')}>
+      <Button icon key="vote" onClick={() => history.push('/')}>
         check_box
-      </Button>,
-      <Button icon key="list" onClick={() => history.push('/list')}>
-        list
       </Button>,
     ];
 
@@ -28,7 +25,11 @@ export class Header extends Component {
         <Toolbar
           actions={actions}
           themed
-          nav={<Button key="nav" icon>menu</Button>}
+          nav={
+            <Button key="nav" icon>
+              menu
+            </Button>
+          }
           title="Accelerator"
         />
         <div className="header__body">

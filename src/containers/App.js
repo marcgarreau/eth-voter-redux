@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, withRouter } from 'react-router';
+import { Route, Switch, withRouter } from 'react-router';
 
-import { addItem } from '../store/items/actions';
 import Header from '../components/Header';
-import ListPage from '../components/ListPage';
 import Home from '../components/Home';
 import VotePage from '../components/VotePage';
 import NewProposalForm from '../components/NewProposalForm';
@@ -18,10 +16,6 @@ export class App extends Component {
   componentDidMount() {
     this.props.dispatch(initialize());
   }
-
-  handleAddItem = text => {
-    this.props.dispatch(addItem(text));
-  };
 
   castVote = support => {
     const { dispatch, proposal } = this.props;
@@ -37,26 +31,21 @@ export class App extends Component {
       <div className="app">
         <Header />
 
-        <Route exact path="/" component={Home} />
-        <Route
-          path="/vote"
-          component={() => {
-            return (
-              <VotePage
-                proposal={this.props.proposal}
-                castVote={this.castVote}
-              />
-            );
-          }}
-        />
-        <Route
-          path="/list"
-          component={() => {
-            return (
-              <ListPage items={this.props.items} addItem={this.handleAddItem} />
-            );
-          }}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={() => {
+              return (
+                <VotePage
+                  proposal={this.props.proposal}
+                  castVote={this.castVote}
+                />
+              );
+            }}
+          />
+          <Route path="/about" component={Home} />
+        </Switch>
 
         <NewProposalForm
           addingProposal={this.props.addingProposal}
@@ -77,7 +66,6 @@ function mapStateToProps(state) {
   return {
     addingProposal: state.proposals.addingProposal,
     currentProposal: state.proposals.current,
-    items: state.items.list,
     proposal: state.proposals.current,
   };
 }
