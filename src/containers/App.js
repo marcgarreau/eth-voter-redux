@@ -2,28 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router';
-import TextField from 'react-md/lib/TextFields';
-import Button from 'react-md/lib/Buttons';
 
 import { addItem } from '../store/items/actions';
 import Header from '../components/Header';
 import ListPage from '../components/ListPage';
 import Home from '../components/Home';
 import VotePage from '../components/VotePage';
+import NewProposalForm from '../components/NewProposalForm';
 import { initialize } from '../store/config/actions';
 import { createProposal } from '../store/proposals/actions';
 import { vote } from '../store/vote/actions';
 import '../assets/stylesheets/App.scss';
 
 export class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      proposalText: '',
-    };
-  }
-
   componentDidMount() {
     this.props.dispatch(initialize());
   }
@@ -37,9 +28,8 @@ export class App extends Component {
     dispatch(vote(proposal, support));
   };
 
-  handleNewProposal = () => {
-    this.props.dispatch(createProposal(this.state.proposalText));
-    this.setState({ proposalText: '' });
+  handleNewProposal = proposalText => {
+    this.props.dispatch(createProposal(proposalText));
   };
 
   render() {
@@ -68,21 +58,11 @@ export class App extends Component {
           }}
         />
 
-        <div className="new-proposal-wrapper">
-          <TextField
-            id="new-proposal"
-            label="New Proposal"
-            onChange={value => this.setState({ proposalText: value })}
-            value={this.state.proposalText}
-          />
-          <Button
-            label="Submit"
-            disabled={!this.state.proposalText.length}
-            onClick={() => this.handleNewProposal()}
-            primary
-            raised
-          />
-        </div>
+        <NewProposalForm
+          addingProposal={this.props.addingProposal}
+          proposal={this.props.proposal}
+          handleNewProposal={this.handleNewProposal}
+        />
       </div>
     );
   }
@@ -95,8 +75,10 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    addingProposal: state.proposals.addingProposal,
+    currentProposal: state.proposals.current,
     items: state.items.list,
-    proposal: state.config.proposalText,
+    proposal: state.proposals.current,
   };
 }
 

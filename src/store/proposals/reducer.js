@@ -1,7 +1,7 @@
 const initialState = {
   count: 0,
   current: null,
-  loading: false,
+  addingProposal: false,
 };
 
 function proposals(state = initialState, action) {
@@ -12,6 +12,10 @@ function proposals(state = initialState, action) {
       return { ...initialState, count: action.payload };
     case 'GET_PROPOSAL_SUCCESS':
       return { ...state, current: action.payload };
+    case 'CREATE_PROPOSAL_REQUEST':
+      return { ...state, addingProposal: true };
+    case 'CREATE_PROPOSAL_SUCCESS':
+      return { ...state, addingProposal: false };
     default:
       return state;
   }

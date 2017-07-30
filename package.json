@@ -21,6 +21,7 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
+    "react-loader": "^2.4.2",
     "react-md": "^1.0.13",
     "react-redux": "^5.0.3",
     "react-router": "^4.1.1",
