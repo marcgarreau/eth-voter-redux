@@ -27,7 +27,13 @@ function getProposalRequest() {
 function getProposalSuccess(payload, index) {
   return {
     type: 'GET_PROPOSAL_SUCCESS',
-    payload: { text: payload[0], votes: payload[1], index },
+    payload: {
+      text: payload[0],
+      votes: payload[1].toNumber(),
+      owner: payload[2],
+      closed: payload[3],
+      index,
+    },
   };
 }
 
@@ -49,13 +55,30 @@ function getProposalCountSuccess(payload) {
 
 export function createProposal(proposal) {
   return async dispatch => {
-    dispatch({ type: 'CREATE_PROPOSAL_REQUEST' });
+    dispatch(createProposalRequest());
     try {
       const tx = await Proposal.create(proposal);
-      dispatch({ type: 'CREATE_PROPOSAL_SUCCESS', payload: tx });
-      dispatch(getProposalCount());
+      dispatch(createProposalSuccess(tx));
+      dispatch(getLatestProposal());
     } catch (e) {
       dispatch({ type: 'CREATE_PROPOSAL_FAILURE', error: e });
     }
+  };
+}
+
+function createProposalRequest() {
+  return { type: 'CREATE_PROPOSAL_REQUEST' };
+}
+
+function createProposalSuccess(payload) {
+  return { type: 'CREATE_PROPOSAL_REQUEST', payload };
+}
+
+function getLatestProposal() {
+  return async dispatch => {
+    dispatch(getProposalCountRequest());
+    const count = await Proposal.getCount();
+    dispatch(getProposalCountSuccess(count));
+    dispatch(getProposal(count - 1));
   };
 }

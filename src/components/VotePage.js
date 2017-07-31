@@ -29,6 +29,9 @@ class VotePage extends Component {
         <div className="vote-page__proposal">
           {proposal.text}
         </div>
+        <div className="vote-page__votes">
+          {`${proposal.votes} net votes`}
+        </div>
         <div className="vote-page__btn-wrapper">
           <Button
             icon

@@ -1,13 +1,23 @@
-export const contractAddress = '0xd511e84e3e535490c074e606e3f6838223243c52';
+export const contractAddress = '0x2525727733091f79c883d600654f165a9b2efca1';
 export const contractABI = [
   {
     constant: true,
     inputs: [{ name: '', type: 'uint256' }],
     name: 'proposals',
     outputs: [
+      { name: 'owner', type: 'address' },
       { name: 'text', type: 'string' },
       { name: 'voteCount', type: 'uint256' },
+      { name: 'closed', type: 'bool' },
     ],
+    payable: false,
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [{ name: 'index', type: 'uint256' }],
+    name: 'closeProposal',
+    outputs: [],
     payable: false,
     type: 'function',
   },
@@ -26,7 +36,7 @@ export const contractABI = [
     constant: false,
     inputs: [{ name: 'proposal', type: 'string' }],
     name: 'addProposal',
-    outputs: [{ name: '', type: 'uint256' }, { name: '', type: 'string' }],
+    outputs: [],
     payable: false,
     type: 'function',
   },
@@ -42,7 +52,12 @@ export const contractABI = [
     constant: false,
     inputs: [{ name: 'index', type: 'uint256' }],
     name: 'getProposal',
-    outputs: [{ name: '', type: 'string' }, { name: '', type: 'uint256' }],
+    outputs: [
+      { name: '', type: 'string' },
+      { name: '', type: 'uint256' },
+      { name: '', type: 'address' },
+      { name: '', type: 'bool' },
+    ],
     payable: false,
     type: 'function',
   },

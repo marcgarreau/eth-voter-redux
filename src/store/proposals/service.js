@@ -16,12 +16,13 @@ class Proposal {
 
   get(index) {
     return new Promise(resolve => {
-      window.web3.eth.getAccounts(async (e, accounts) => {
+      window.web3.eth.getAccounts((e, accounts) => {
         if (!e && accounts && accounts.length > 0) {
           window.contract.getProposal.call(
             index,
             {
               from: accounts[0],
+              gas: 150000,
             },
             (e, response) => {
               resolve(response);
@@ -36,12 +37,13 @@ class Proposal {
 
   create(proposal) {
     return new Promise(resolve => {
-      window.web3.eth.getAccounts(async (e, accounts) => {
+      window.web3.eth.getAccounts((e, accounts) => {
         if (!e && accounts && accounts.length > 0) {
           window.contract.addProposal(
             proposal,
             {
               from: accounts[0],
+              gas: 150000,
             },
             (e, response) => {
               resolve(response);

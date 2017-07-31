@@ -1,8 +1,9 @@
 const initialState = {
-  addingProposal: false,
   count: 0,
   current: {
+    closed: false,
     index: -1,
+    owner: '',
     text: '',
     votes: 0,
   },
@@ -18,9 +19,11 @@ function proposals(state = initialState, action) {
     case 'GET_PROPOSAL_SUCCESS':
       return { ...state, current: action.payload, loading: false };
     case 'CREATE_PROPOSAL_REQUEST':
-      return { ...state, addingProposal: true };
+      return { ...state, loading: true };
     case 'CREATE_PROPOSAL_SUCCESS':
-      return { ...state, addingProposal: false };
+      return { ...state, loading: false };
+    case 'CREATE_PROPOSAL_FAILURE':
+      return { ...state, loading: false, error: action.error };
     default:
       return state;
   }
