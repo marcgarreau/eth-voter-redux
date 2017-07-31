@@ -12,6 +12,8 @@ function vote(state = initialState, action) {
       return { ...state, loading: false };
     case 'VOTE_FAILURE':
       return { ...state, loading: false, error: action.error };
+    case 'DISMISS_VOTE_ERROR':
+      return { ...state, error: '' };
     default:
       return state;
   }

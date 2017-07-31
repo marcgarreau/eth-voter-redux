@@ -25,3 +25,7 @@ export function voteSuccess(payload) {
 export function voteFailure(error) {
   return { type: 'VOTE_FAILURE', error: 'Only one vote is permitted.' };
 }
+
+export function dismissVoteError() {
+  return { type: 'DISMISS_VOTE_ERROR' };
+}

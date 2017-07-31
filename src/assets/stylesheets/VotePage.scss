@@ -17,10 +17,20 @@
 }
 
 .vote-page__error {
-  padding: 5px;
   background-color: #E53935;
-  color: white;
   border: 1px solid #888;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  position: relative;
+}
+
+.vote-page__error-dismiss {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  cursor: pointer;
+  padding: 5px;
 }
 
 .vote-page__proposal {

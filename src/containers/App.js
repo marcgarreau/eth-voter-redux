@@ -9,7 +9,7 @@ import VotePage from '../components/VotePage';
 import NewProposalForm from '../components/NewProposalForm';
 import { initialize } from '../store/config/actions';
 import { createProposal, getProposal } from '../store/proposals/actions';
-import { vote } from '../store/vote/actions';
+import { vote, dismissVoteError } from '../store/vote/actions';
 import '../assets/stylesheets/App.scss';
 
 export class App extends Component {
@@ -29,6 +29,10 @@ export class App extends Component {
     this.props.dispatch(getProposal(index));
   };
 
+  handleVoteErrorDismiss = () => {
+    this.props.dispatch(dismissVoteError());
+  };
+
   render() {
     return (
       <div className="app">
@@ -45,6 +49,7 @@ export class App extends Component {
                   proposalCount={this.props.proposalCount}
                   handleCastVote={this.handleCastVote}
                   handleGetProposal={this.handleGetProposal}
+                  handleVoteErrorDismiss={this.handleVoteErrorDismiss}
                   voteError={this.props.voteError}
                 />
               );

@@ -17,11 +17,21 @@ class VotePage extends Component {
     this.props.handleCloseVote(index);
   };
 
+  handleVoteErrorDismiss = index => {
+    this.props.handleVoteErrorDismiss();
+  };
+
   renderError() {
     if (this.props.voteError) {
       return (
         <div className="vote-page__error">
           {this.props.voteError}
+          <div
+            className="vote-page__error-dismiss"
+            onClick={this.handleVoteErrorDismiss}
+          >
+            x
+          </div>
         </div>
       );
     }
