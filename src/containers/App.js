@@ -17,9 +17,8 @@ export class App extends Component {
     this.props.dispatch(initialize());
   }
 
-  castVote = support => {
-    const { dispatch, proposal } = this.props;
-    dispatch(vote(proposal, support));
+  handleCastVote = (index, support) => {
+    this.props.dispatch(vote(index, support));
   };
 
   handleNewProposal = proposalText => {
@@ -44,8 +43,9 @@ export class App extends Component {
                 <VotePage
                   proposal={this.props.proposal}
                   proposalCount={this.props.proposalCount}
-                  castVote={this.castVote}
+                  handleCastVote={this.handleCastVote}
                   handleGetProposal={this.handleGetProposal}
+                  voteError={this.props.voteError}
                 />
               );
             }}
@@ -73,6 +73,7 @@ function mapStateToProps(state) {
     currentProposal: state.proposals.current,
     proposalCount: state.proposals.count,
     proposal: state.proposals.current,
+    voteError: state.vote.error,
   };
 }
 

@@ -5,13 +5,27 @@ import Button from 'react-md/lib/Buttons';
 import '../assets/stylesheets/VotePage.scss';
 
 class VotePage extends Component {
-  castVote = pro => {
-    this.props.castVote(pro);
+  handleCastVote = (index, support) => {
+    this.props.handleCastVote(index, support);
   };
 
   handleGetProposal = index => {
     this.props.handleGetProposal(index);
   };
+
+  handleCloseVote = index => {
+    this.props.handleCloseVote(index);
+  };
+
+  renderError() {
+    if (this.props.voteError) {
+      return (
+        <div className="vote-page__error">
+          {this.props.voteError}
+        </div>
+      );
+    }
+  }
 
   render() {
     const { proposal, proposalCount } = this.props;
@@ -26,6 +40,7 @@ class VotePage extends Component {
 
     return (
       <div className="vote-page-wrapper">
+        {this.renderError()}
         <div className="vote-page__proposal">
           {proposal.text}
         </div>
@@ -43,17 +58,19 @@ class VotePage extends Component {
           </Button>
           <Button
             raised
-            primary
+            secondary
             className="vote-page__btn"
-            label="Yes"
-            onClick={() => this.castVote(true)}
+            disabled={proposal.closed}
+            label="No"
+            onClick={() => this.handleCastVote(proposal.index, false)}
           />
           <Button
             raised
-            secondary
+            primary
             className="vote-page__btn"
-            label="No"
-            onClick={() => this.castVote(false)}
+            disabled={proposal.closed}
+            label="Yes"
+            onClick={() => this.handleCastVote(proposal.index, true)}
           />
           <Button
             icon
